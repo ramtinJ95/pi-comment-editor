@@ -160,7 +160,7 @@ Version `2.0.0` replaces the external `$VISUAL` / `$EDITOR` workflow with the na
 
 External-editor configuration and free-form edits to a copied full response are no longer supported. The native reviewer instead keeps feedback anchored to immutable logical response lines and prepares a compact review containing only the annotated quotes.
 
-The release was developed and validated against Pi `0.81.1`.
+The release was developed against Pi `0.81.1` and is validated against Pi `1.1.0`.
 
 ## Development
 
