@@ -60,6 +60,34 @@ describe("ResponseReviewComponent", () => {
 		}
 	});
 
+	test("leaves room for Pi's chrome when a long response fills the screen", () => {
+		const rows = 40;
+		const source = Array.from({ length: 200 }, (_, index) => `line ${index}`).join("\n");
+		const { component } = harness(source, rows);
+		const sourceRows = (output: string[]) => output.filter((line) => line.includes(" │ ")).length;
+
+		component.handleInput("c");
+		enterText(component, "first");
+		component.handleInput("\r");
+		enterText(component, "second");
+		component.handleInput("\r");
+		enterText(component, "third");
+		const draftOutput = component.render(80);
+		expect(sourceRows(draftOutput)).toBe(rows / 2);
+		expect(draftOutput.length).toBeLessThan(rows);
+		expect(draftOutput.at(-2)).toContain("Ctrl-s save");
+
+		component.handleInput("\x13");
+		const browseOutput = component.render(80);
+		expect(sourceRows(browseOutput)).toBe(rows / 2);
+		expect(browseOutput.length).toBeLessThan(rows);
+		expect(browseOutput[0]).toMatch(/^─+$/);
+		expect(browseOutput[1]).toContain("Response review");
+		expect(browseOutput.join("\n")).toContain("third");
+		expect(browseOutput.at(-2)).toContain("j/k move");
+		expect(browseOutput.at(-1)).toMatch(/^─+$/);
+	});
+
 	test("preserves syntax highlighting across state-only refreshes", () => {
 		const { component } = harness("```ts\nconst value = 1;\n```\nafter");
 		component.render(60);
