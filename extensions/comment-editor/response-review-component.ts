@@ -374,7 +374,11 @@ export class ResponseReviewComponent implements Component, Focusable {
 		const fixedRows = 5 + draftErrorRows;
 		const draftRows = this.state.mode.kind === "draft" ? Math.min(6, Math.max(3, Math.floor(terminalHeight / 3))) : 0;
 		const previewRows = this.state.mode.kind === "browse" ? Math.min(4, Math.max(0, terminalHeight - 10)) : 0;
-		const bodyHeight = terminalHeight - fixedRows - draftRows - previewRows;
+		// Pi's footer and widgets share the screen, so size the source like Pi's session tree selector.
+		const bodyHeight = Math.min(
+			Math.max(5, Math.floor(terminalHeight / 2)),
+			terminalHeight - fixedRows - draftRows - previewRows,
+		);
 		const rows = buildWrappedSourceRows(
 			this.state.document,
 			bodyWidth,
