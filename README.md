@@ -1,4 +1,5 @@
 # pi-comment-editor
+> **Moved:** this package now lives in [ramtinJ95/ramtin-pi-stuff](https://github.com/ramtinJ95/ramtin-pi-stuff/tree/main/packages/pi-comment-editor). This repository is archived; open issues and pull requests there.
 
 Native, line-based review for [Pi](https://github.com/earendil-works/pi-mono) assistant responses.
 
